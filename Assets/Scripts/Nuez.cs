@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Nuez : MonoBehaviour
@@ -8,12 +6,12 @@ public class Nuez : MonoBehaviour
     public float currentTime;
 
     public TimeBar timeBar;
-    private bool rotate = true;
+    private bool floor = false;
 
     public SpriteRenderer spriteRenderer;
-    public Sprite nuezRoten1;
-    public Sprite nuezRoten2;
-    public Sprite nuezRoten3;
+    public Sprite nuezRotten1;
+    public Sprite nuezRotten2;
+    public Sprite nuezRotten3;
 
     void Start()
     {
@@ -25,36 +23,25 @@ public class Nuez : MonoBehaviour
 
     void Update()
     {
-        if (rotate)
-        {
-            // timeBar.gameObject.SetActive(false);
-            // transform.Rotate(new Vector3(0, 0, 45) * Time.deltaTime);
-        }
-        else
+        if (floor)
         {
             if (currentTime > 0)
             {
                 currentTime -= Time.deltaTime;
                 timeBar.SetTime(currentTime);
-                if (currentTime / maxTime <= 0.70f && currentTime / maxTime > 0.40f && spriteRenderer.sprite != nuezRoten1)
+                if (currentTime / maxTime <= 0.70f && currentTime / maxTime > 0.40f && spriteRenderer.sprite != nuezRotten1)
                 {
-                    Debug.Log("nuezRoten1");
-                    spriteRenderer.sprite = nuezRoten1;
+                    spriteRenderer.sprite = nuezRotten1;
                 }
-                else if (currentTime / maxTime <= 0.40f && spriteRenderer.sprite != nuezRoten2)
+                else if (currentTime / maxTime <= 0.40f && spriteRenderer.sprite != nuezRotten2)
                 {
-                    Debug.Log("nuezRoten2");
-                    spriteRenderer.sprite = nuezRoten2;
+                    spriteRenderer.sprite = nuezRotten2;
                 }
             }
             else
             {
-                if (spriteRenderer.sprite != nuezRoten3)
-                {
-                    spriteRenderer.sprite = nuezRoten3;
-                    timeBar.gameObject.SetActive(false);
-
-                }
+                timeBar.gameObject.SetActive(false);
+                spriteRenderer.sprite = nuezRotten3;
             }
         }
     }
@@ -71,7 +58,7 @@ public class Nuez : MonoBehaviour
         currentTime = maxTime;
         // ((TimeBar) timeBar).SetMaxTime(maxTime);
         // timeBar.SetMaxTime(maxTime);
-        rotate = false;
+        floor = true;
     }
 
     void OnCollisionExit2D(Collision2D other)
@@ -84,5 +71,4 @@ public class Nuez : MonoBehaviour
         // Debug.Log("OnCollisionStay2D");
     }
 }
-
 
